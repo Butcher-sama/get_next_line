@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkasap <fkasap@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/28 13:10:48 by fkasap            #+#    #+#             */
+/*   Updated: 2024/11/28 17:21:54 by fkasap           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -32,20 +44,6 @@ char	*ft_strchr(const char *src, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s1)
-{
-	char	*starget;
-	size_t	count;
-
-	count = ft_strlen(s1);
-	starget = (char *)malloc((count + 1) * sizeof(char));
-	if (!starget)
-		return (NULL);
-	ft_strlcpy(starget, s1, count + 1);
-	starget[count] = '\0';
-	return (starget);
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
@@ -71,4 +69,28 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	substring[i] = '\0';
 	return (substring);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*stogether;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	stogether = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!stogether)
+		return (NULL);
+	while (s1[j] != '\0')
+	{
+		stogether[i++] = s1[j++];
+	}
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		stogether[i++] = s2[j++];
+	}
+	stogether[i] = '\0';
+	return (stogether);
 }
