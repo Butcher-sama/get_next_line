@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkasap <fkasap@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 13:10:10 by fkasap            #+#    #+#             */
-/*   Updated: 2024/12/04 16:55:19 by fkasap           ###   ########.fr       */
+/*   Created: 2024/12/04 15:14:44 by fkasap            #+#    #+#             */
+/*   Updated: 2024/12/04 15:22:42 by fkasap           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*fill_line(char *remainder)
 {
@@ -53,27 +53,27 @@ char	*get_next_line(int fd)
 {
 	char			buffer[BUFFER_SIZE + 1];
 	ssize_t			bytes_read;
-	static char		*remainder;
+	static char		*remainder[1024];
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (ft_free(&remainder));
+		return (ft_free(&remainder[fd]));
 	while (1)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
 			break ;
 		buffer[bytes_read] = '\0';
-		if (remainder)
-			remainder = ft_strjoin(remainder, buffer);
+		if (remainder[fd])
+			remainder[fd] = ft_strjoin(remainder[fd], buffer);
 		else
-			remainder = ft_substr(buffer, 0, ft_strlen(buffer));
-		if (ft_strchr(remainder, '\n'))
+			remainder[fd] = ft_substr(buffer, 0, ft_strlen(buffer));
+		if (ft_strchr(remainder[fd], '\n'))
 			break ;
 	}
-	if (bytes_read < 0 || (!bytes_read && (!remainder || !*remainder)))
-		ft_free(&remainder);
-	line = fill_line(remainder);
-	remainder = update_remainder(remainder);
+	if (bytes_read < 0 || (!bytes_read && (!remainder[fd] || !*remainder[fd])))
+		ft_free(&remainder[fd]);
+	line = fill_line(remainder[fd]);
+	remainder[fd] = update_remainder(remainder[fd]);
 	return (line);
 }
