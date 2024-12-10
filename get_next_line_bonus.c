@@ -6,7 +6,7 @@
 /*   By: fkasap <fkasap@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:14:44 by fkasap            #+#    #+#             */
-/*   Updated: 2024/12/04 15:22:42 by fkasap           ###   ########.fr       */
+/*   Updated: 2024/12/09 14:19:17 by fkasap           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*fill_line(char *remainder)
 	if (remainder[i] == '\0')
 		line_copy = ft_substr(remainder, 0, i);
 	if (!line_copy)
-		return (NULL);
+		return (ft_free(&remainder));
 	return (line_copy);
 }
 
@@ -53,7 +53,7 @@ char	*get_next_line(int fd)
 {
 	char			buffer[BUFFER_SIZE + 1];
 	ssize_t			bytes_read;
-	static char		*remainder[1024];
+	static char		*remainder[4096];
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -72,7 +72,7 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	if (bytes_read < 0 || (!bytes_read && (!remainder[fd] || !*remainder[fd])))
-		ft_free(&remainder[fd]);
+		return (ft_free(&remainder[fd]));
 	line = fill_line(remainder[fd]);
 	remainder[fd] = update_remainder(remainder[fd]);
 	return (line);

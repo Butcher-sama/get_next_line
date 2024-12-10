@@ -6,7 +6,7 @@
 /*   By: fkasap <fkasap@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:15:41 by fkasap            #+#    #+#             */
-/*   Updated: 2024/12/04 15:37:35 by fkasap           ###   ########.fr       */
+/*   Updated: 2024/12/09 14:43:38 by fkasap           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 

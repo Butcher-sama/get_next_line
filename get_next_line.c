@@ -6,7 +6,7 @@
 /*   By: fkasap <fkasap@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 13:10:10 by fkasap            #+#    #+#             */
-/*   Updated: 2024/12/04 16:55:19 by fkasap           ###   ########.fr       */
+/*   Updated: 2024/12/09 14:27:03 by fkasap           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*fill_line(char *remainder)
 	if (remainder[i] == '\0')
 		line_copy = ft_substr(remainder, 0, i);
 	if (!line_copy)
-		return (NULL);
+		return (ft_free(&remainder));
 	return (line_copy);
 }
 
@@ -72,7 +72,7 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	if (bytes_read < 0 || (!bytes_read && (!remainder || !*remainder)))
-		ft_free(&remainder);
+		return (ft_free(&remainder));
 	line = fill_line(remainder);
 	remainder = update_remainder(remainder);
 	return (line);
